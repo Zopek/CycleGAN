@@ -96,12 +96,12 @@ class CycleGAN():
 
         for i in range(max_images): 
             image_tensor = sess.run(self.image_A)
-            if(image_tensor.size() == img_size*batch_size*img_layer):
+            if(image_tensor.shape == [img_height, img_width, img_layer]):
                 self.A_input[i] = image_tensor.reshape((batch_size,img_height, img_width, img_layer))
 
         for i in range(max_images):
             image_tensor = sess.run(self.image_B)
-            if(image_tensor.size() == img_size*batch_size*img_layer):
+            if(image_tensor.shape == [img_height, img_width, img_layer]):
                 self.B_input[i] = image_tensor.reshape((batch_size,img_height, img_width, img_layer))
 
 
@@ -280,8 +280,9 @@ class CycleGAN():
                 # sys.exit()
 
                 for ptr in range(0,max_images):
-                    print("In the iteration ",ptr)
-                    print("Starting",time.time()*1000.0)
+                    if ptr % 20 == 0:
+                        print("In the iteration ",ptr)
+                    # print("Starting",time.time()*1000.0)
 
                     # Optimizing the G_A network
 
